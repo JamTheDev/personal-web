@@ -26,7 +26,7 @@ const SplashScreen: FunctionComponent = () => {
           <div className='p-12 mt-12 flex flex-col justify-center gap-3 h-96'>
             <span className='lg:text-3xl md:text-text-2xl text-2xl font-bold'>What&apos;s Up?</span>
             <span className='lg:text-[3.5rem] md:text-[2.5rem] text-[2rem]'>
-              Hi, I'm Jam!
+              Hi, I&apos;m Jam!
               <br />
               Jack-of-all-trades.
             </span>
@@ -94,27 +94,27 @@ const AboutMe: FunctionComponent = () => {
           <div className='lg:col-span-1 md:col-span-1 row-span-1 lg:flex justify-center items-center font-mono text-center'>
             <div className='px-2 lg:py-0 py-5'>
               <div className='w-full '>
-                <span className='lg:text-4xl md:text-2xl text-3xl'>"</span>
+                <span className='lg:text-4xl md:text-2xl text-3xl'>&quot;</span>
                 <span className='lg:text-3xl md:text-1xl text-2xl'>trust the process.</span>
-                <span className='lg:text-4xl md:text-2xl text-3xl'>"</span>
+                <span className='lg:text-4xl md:text-2xl text-3xl'>&quot;</span>
               </div>
 
               <div className='text-stone-500 w-full'>
-                <span className='lg:text-4xl md:text-2xl text-3xl'>"</span>
+                <span className='lg:text-4xl md:text-2xl text-3xl'>&quot;</span>
                 <span className='lg:text-3xl md:text-1xl text-2xl'>trust the process.</span>
-                <span className='lg:text-4xl md:text-2xl text-3xl'>"</span>
+                <span className='lg:text-4xl md:text-2xl text-3xl'>&quot;</span>
               </div>
 
               <div className='text-stone-400 w-full'>
-                <span className='lg:text-4xl md:text-2xl text-3xl'>"</span>
+                <span className='lg:text-4xl md:text-2xl text-3xl'>&quot;</span>
                 <span className='lg:text-3xl md:text-1xl text-2xl'>trust the process.</span>
-                <span className='lg:text-4xl md:text-2xl text-3xl'>"</span>
+                <span className='lg:text-4xl md:text-2xl text-3xl'>&quot;</span>
               </div>
 
               <div className='text-stone-300 w-full'>
-                <span className='lg:text-4xl md:text-2xl text-3xl'>"</span>
+                <span className='lg:text-4xl md:text-2xl text-3xl'>&quot;</span>
                 <span className='lg:text-3xl md:text-1xl text-2xl'>trust the process.</span>
-                <span className='lg:text-4xl md:text-2xl text-3xl'>"</span>
+                <span className='lg:text-4xl md:text-2xl text-3xl'>&quot;</span>
               </div>
             </div>
           </div>
@@ -137,9 +137,9 @@ const VisionAndMission: FunctionComponent = () => {
         xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="sw-gradient-0" x1="1" x2="0" y1="0" y2="0">
-            <stop stop-color="#4ade80" offset="0%">
+            <stop stopColor="#4ade80" offset="0%">
             </stop>
-            <stop stop-color="#4ade80" offset="100%">
+            <stop stopColor="#4ade80" offset="100%">
             </stop>
           </linearGradient>
         </defs>
