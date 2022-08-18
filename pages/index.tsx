@@ -24,7 +24,7 @@ const SplashScreen: FunctionComponent = () => {
       <div className='grid lg:grid-cols-3 grid-cols-1 p-12'>
         <div className='lg:col-span-2 md:col-span-2 col-span-1'>
           <div className='p-12 mt-12 flex flex-col justify-center gap-3 h-96'>
-            <span className='lg:text-3xl md:text-text-2xl text-2xl font-bold'>What's Up?</span>
+            <span className='lg:text-3xl md:text-text-2xl text-2xl font-bold'>What&apos;s Up?</span>
             <span className='lg:text-[3.5rem] md:text-[2.5rem] text-[2rem]'>
               Hi, I'm Jam!
               <br />
