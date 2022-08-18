@@ -172,9 +172,9 @@ const VisionAndMission: FunctionComponent = () => {
         xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="sw-gradient-0" x1="1" x2="0" y1="0" y2="0">
-            <stop stop-color="#4ade80" offset="0%">
+            <stop stopColor="#4ade80" offset="0%">
             </stop>
-            <stop stop-color="#4ade80" offset="100%">
+            <stop stopColor="#4ade80" offset="100%">
             </stop>
           </linearGradient>
         </defs>
