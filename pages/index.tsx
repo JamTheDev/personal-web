@@ -21,7 +21,7 @@ const Home: NextPage = () => {
 const SplashScreen: FunctionComponent = () => {
   return (
     <>
-      <div className='grid lg:grid-cols-3 grid-cols-1 p-12'>
+      <div className='grid lg:grid-cols-3 grid-cols-1 lg:p-12 md:p-10 p-0'>
         <div className='lg:col-span-2 md:col-span-2 col-span-1'>
           <div className='p-12 mt-12 flex flex-col justify-center gap-3 h-96'>
             <span className='lg:text-3xl md:text-text-2xl text-2xl font-bold'>What&apos;s Up?</span>
@@ -53,9 +53,9 @@ const SplashScreen: FunctionComponent = () => {
 const AboutMe: FunctionComponent = () => {
   return (
     <>
-      <div className='px-12'>
+      <div className='lg:px-12 px-8'>
         <span className='text-2xl font-bold'>About Me</span>
-        <div className='lg:columns-2 md:columns-2 px-10 py-8 w-full'>
+        <div className='lg:columns-2 md:columns-2 lg:px-10 md:px-7 px-3 py-8 w-full'>
           <div className='row-span-1'>
             <div className='py-2'>
               <div>
@@ -219,12 +219,12 @@ const ExperienceSection: FunctionComponent = () => {
   }
 
   return (
-    <div className='px-12 py-6'>
+    <div className='lg:px-12 md:px-10 px-5 py-8'>
       <span className='font-bold text-2xl'>
         Experience
       </span>
 
-      <div className='w-full px-10 py-8 flex flex-col'>
+      <div className='w-full lg:px-10 md:px-8 px-5 py-8 flex flex-col'>
         <span>
           For the past 3 years, I have been learning frameworks, libraries, and various programming languages
           to help me jumpstart my career as a software developer. As a result, I have a huge array of knowledge in different

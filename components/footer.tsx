@@ -7,9 +7,9 @@ import Button from "./input/button";
 const Footer: FunctionComponent = () => {
     return (
         <>
-            <div className='relative bottom-0 grid lg:md:grid-cols-2 grid-cols-1 px-12 bg-gradient-to-l from-purple-400 to-purple-800'>
+            <div className='relative bottom-0 grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 px-12 bg-gradient-to-l from-purple-400 to-purple-800'>
                 <div className='relative bottom-5 col-span-1 bg-purple-400 p-4 rounded-md drop-shadow-lg'>
-                    <span className='font-bold text-4xl'> INTERESTED? </span>
+                    <span className='font-bold px-2 lg:text-3xl text-xl'> INTERESTED? </span>
                     <div className='px-6 py-3 flex flex-col gap-3'>
                         <Button
                             onClick={() => window.open("https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=geod332@gmail.com", "_blank")}
