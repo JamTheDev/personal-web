@@ -1,18 +1,30 @@
-import Button from '@/components/input/button';
-import Navbar from '@/components/navbar'
-import { faFacebook, faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import type { NextPage } from 'next'
-import React, { FunctionComponent, HTMLAttributes, useState } from 'react'
+import { get } from '@/helper/fetch.helper';
+import { AboutMe } from '@/types/cms-types/about-me-types';
+import { Experience } from '@/types/cms-types/experience-types';
+import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
+import React, { FunctionComponent, HTMLAttributes } from 'react'
+import { createContext } from 'react';
+import { useContext } from 'react';
 import 'react-circular-progressbar/dist/styles.css';
-const Home: NextPage = () => {
+import { marked } from "marked";
+
+type MainContextTypes = {
+  experiences: Experience,
+  aboutMe: AboutMe
+}
+
+const MainContext = createContext({} as MainContextTypes);
+
+const Home: NextPage = ({ experiences, aboutMe }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  console.log("up is the  data retrieved")
   return (
     <>
-      <SplashScreen />
-      <AboutMe />
-      <VisionAndMission />
-      <ExperienceSection />
+      <MainContext.Provider value={{aboutMe: aboutMe, experiences: experiences}}>
+        <SplashScreen />
+        <AboutMe />
+        <VisionAndMission />
+        <ExperienceSection />
+      </MainContext.Provider>
     </>
   )
 }
@@ -51,6 +63,8 @@ const SplashScreen: FunctionComponent = () => {
 }
 
 const AboutMe: FunctionComponent = () => {
+  const context = useContext(MainContext);
+  console.log(context)
   return (
     <>
       <div className='lg:px-12 px-8'>
@@ -61,9 +75,8 @@ const AboutMe: FunctionComponent = () => {
               <div>
                 <span className='text-2xl font-bold'>Short Introduction</span>
               </div>
-              <div className='px-2 py-2'>
-                <span>Hello! I am <b>Jam! </b>
-                  I am a filipino of 18 years in age, currently studying <b>Bachelor of Science in Computer Science</b> at <b>University of Makati.</b> </span>
+              <div className='px-2 py-2' dangerouslySetInnerHTML={{__html: marked.parse(context.aboutMe.data.attributes.intro)}}>
+                
               </div>
             </div>
             <hr />
@@ -71,8 +84,8 @@ const AboutMe: FunctionComponent = () => {
               <div>
                 <span className='text-2xl font-bold'>My Past</span>
               </div>
-              <div className='px-2 py-2'>
-                <span>Everything started at <b>10th grade</b> at <b>Marcelo H. Del Pilar National High School.</b> I took programming as a TVL Subject back then, I was very interested in programming and pursuing it. I not only participated and became active at class, I was also self-studying about discord bots && android development by that time.</span>
+              <div className='px-2 py-2' dangerouslySetInnerHTML={{__html: marked.parse(context.aboutMe.data.attributes.mypast)}}>
+                
               </div>
             </div>
             <hr />
@@ -81,12 +94,8 @@ const AboutMe: FunctionComponent = () => {
                 <span className='text-2xl font-bold'>Motivation</span>
               </div>
               <div className='px-2 py-2'>
-                <span>
-                  Software Development && Programming in general is an extremely hard field, only a few
-                  survive and be successful under this field, every day, new frameworks and trends arise || change,
-                  and I understand this. But, I believe that with <b>passion,</b> everything is <b>possible.</b>
-                  I strive to be a better person than who I was yesterday, break through barriers, and be the best, even
-                  if it takes me a long time.
+                <span dangerouslySetInnerHTML={{__html: marked.parse(context.aboutMe.data.attributes.mypast)}}>
+                  
                 </span>
               </div>
             </div>
@@ -186,9 +195,17 @@ const VisionAndMission: FunctionComponent = () => {
 
 const ExperienceSection: FunctionComponent = () => {
 
-  const ExperienceItem: FunctionComponent<HTMLAttributes<HTMLDivElement> & { image: string, text: string }> = ({ image, text, className }) => {
+  const context = useContext(MainContext);
+
+  const arrLength = context.experiences.data.length;
+  const splitArr = [
+    context.experiences.data.slice(0, Math.floor(arrLength / 2)),
+    context.experiences.data.slice(Math.floor(arrLength / 2), arrLength)
+  ]
+
+  const ExperienceItem: FunctionComponent<HTMLAttributes<HTMLDivElement> & { image: string, text: string }> = ({ image, text, className, style }) => {
     return (
-      <div className={`relative flex flex-col overflow-hidden group justify-center items-center h-44 w-full col-span-1 gap-0 my-2 ${className} -skew-x-3`}>
+      <div style={style} className={`relative flex flex-col overflow-hidden group justify-center items-center h-44 w-full col-span-1 gap-0 my-2 ${className} -skew-x-3`}>
 
         <div className='absolute h-44 w-full bg-gradient-to-t from-black to-transparent opacity-60 group-hover:opacity-80 transition-opacity z-10'>
 
@@ -225,95 +242,67 @@ const ExperienceSection: FunctionComponent = () => {
       </span>
 
       <div className='w-full lg:px-10 md:px-8 px-5 py-8 flex flex-col'>
-        <span>
-          For the past 3 years, I have been learning frameworks, libraries, and various programming languages
-          to help me jumpstart my career as a software developer. As a result, I have a huge array of knowledge in different
-          fields such as front-end development and back-end development in multiple platforms, even automation aswell. Below are the tools I am using && that I have used
-          to build applications.
-        </span>
+
+        <div dangerouslySetInnerHTML={{__html: marked.parse(context.aboutMe.data.attributes.experienceDesc)}}>
+
+        </div>
+
 
         <div className='my-6 grid lg:md:grid-cols-2 grid-cols-1 gap-8'>
           <div className='col-span-1'>
 
-            <ExperienceSection sectionTitle='Front-End Frameworks'>
-              <ExperienceItem
-                className='bg-cyan-600'
-                image={"https://pluspng.com/img-png/react-logo-png-img-react-logo-png-react-js-logo-png-transparent-png-1142x1027.png"}
-                text={"REACT (TS)"} />
+            {
 
-              <ExperienceItem
-                className='bg-gradient-to-r from-green-500 to-green-300'
-                image={"https://impicode.com/wp-content/uploads/sites/2/2020/07/330px-Vue.js_Logo_2.svg_-300x260.png"}
-                text={"VUE (TS)"} />
-
-              <ExperienceItem
-                className='bg-gradient-to-r from-orange-500 to-orange-300'
-                image={"https://raw.githubusercontent.com/sveltejs/svelte/29052aba7d0b78316d3a52aef1d7ddd54fe6ca84/site/static/images/svelte-android-chrome-512.png"}
-                text={"SVELTE (TS)"} />
-
-              <ExperienceItem
-                className='bg-gradient-to-r from-red-500 to-red-300'
-                image={"https://pluspng.com/img-png/angular-logo-png-angular-logo-transparent-png-pluspng-482x512.png"}
-                text={"ANGULAR (TS)"} />
-
-
-            </ExperienceSection>
-
-            <ExperienceSection sectionTitle='Cross-Platform'>
-              <ExperienceItem
-                className='bg-gradient-to-r from-cyan-200 to-cyan-300'
-                image={"https://alexisvt.gallerycdn.vsassets.io/extensions/alexisvt/flutter-snippets/0.0.2/1529817162825/Microsoft.VisualStudio.Services.Icons.Default"}
-                text={"FLUTTER"} />
-            </ExperienceSection>
-
-            <ExperienceSection sectionTitle='CSS Frameworks'>
-              <ExperienceItem
-                className='bg-cyan-200'
-                image={"https://iconape.com/wp-content/files/an/351546/png/tailwind-css-logo.png"}
-                text={"TAILWIND"} />
-
-              <ExperienceItem
-                className='bg-gradient-to-r from-purple-400 to-purple-500'
-                image={"https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo-shadow.png"}
-                text={"BOOTSTRAP"} />
-            </ExperienceSection>
+              splitArr[0].map((val) => {
+                return (
+                  <ExperienceSection sectionTitle={val.attributes.tag_name}>
+                    {
+                      // string formatting does not work on arbitrary values. instead,
+                      // we shall use inline styles 
+                      val.attributes.experience_items.data.map(e =>
+                        <ExperienceItem
+                          image={e.attributes.imageUrl}
+                          text={e.attributes.item_text}
+                          style={
+                            {
+                              backgroundImage: `linear-gradient(to right, ${e.attributes.color_from}, ${e.attributes.color_to})`
+                            }
+                          }
+                        />
+                      )
+                    }
+                  </ExperienceSection>
+                )
+              })
+            }
 
           </div>
 
           <div className='col-span-1'>
-            <ExperienceSection sectionTitle='Back-End / Middleware Frameworks'>
-              <ExperienceItem
-                className='bg-gradient-to-r from-stone-500 to-stone-700'
-                image='https://assets.vercel.com/image/upload/v1607554385/repositories/next-js/next-logo.png'
-                text='NEXTJS API'
-              />
+            {
 
-              <ExperienceItem
-                className='bg-gradient-to-r from-purple-500 to-cyan-500'
-                image='https://ozekiphone.com/attachments/706/asp_net_icon_transparent.png'
-                text='ASP.NET Web API'
-              />
-            </ExperienceSection>
-
-            <ExperienceSection sectionTitle='Databases'>
-              <ExperienceItem
-                className='bg-gradient-to-r from-cyan-300 to-cyan-500'
-                image='https://cdn.iconscout.com/icon/free/png-256/postgresql-5-569524.png'
-                text='PostgreSQL'
-              />
-
-              <ExperienceItem
-                className='bg-gradient-to-r from-green-300 to-green-400'
-                image='https://cdn.icon-icons.com/icons2/2699/PNG/512/mongodb_logo_icon_170943.png'
-                text='MongoDB'
-              />
-
-              <ExperienceItem
-                className='bg-gradient-to-r from-orange-200 to-orange-300'
-                image='https://pluspng.com/img-png/firebase-logo-png-firebase-logo-png-transparent-amp-svg-vector-pluspng-2400x3291.png'
-                text='Firebase'
-              />
-            </ExperienceSection>
+              splitArr[1].map((val) => {
+                return (
+                  <ExperienceSection sectionTitle={val.attributes.tag_name}>
+                    {
+                      // string formatting does not work on arbitrary values. instead,
+                      // we shall use inline styles 
+                      val.attributes.experience_items.data.map(e =>
+                        <ExperienceItem
+                          image={e.attributes.imageUrl}
+                          text={e.attributes.item_text}
+                          style={
+                            {
+                              backgroundImage: `linear-gradient(to right, ${e.attributes.color_from}, ${e.attributes.color_to})`
+                            }
+                          }
+                        />
+                      )
+                    }
+                  </ExperienceSection>
+                )
+              })
+            }
           </div>
         </div>
       </div>
@@ -322,3 +311,30 @@ const ExperienceSection: FunctionComponent = () => {
 }
 
 export default Home
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  console.log("hi")
+
+  // CMS_URL is the Content Management System the application uses. 
+  const responses: Response[] = await get([
+    `${process.env.CMS_URL!}/api/experience-tags/?populate=*`,
+    `${process.env.CMS_URL!}/api/aboutme`,
+  ], (err) => {
+    if (err.length) {
+      console.log("ERROR ENCOUNTERED")
+      err.forEach((response) => console.error(response.status, response.statusText));
+      return { props: {} }
+    }
+  })
+
+  const jsonResponses = responses.map(async (e) => await e.json());
+  const experiencesJson = await jsonResponses[0];
+  const aboutMeJson = await jsonResponses[1];
+
+  return {
+    props: {
+      experiences: experiencesJson as Experience,
+      aboutMe: aboutMeJson as AboutMe
+    }
+  }
+}
