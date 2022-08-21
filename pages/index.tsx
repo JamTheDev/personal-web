@@ -13,19 +13,14 @@ import SplashScreen from './index-components/splash-screen';
 import VisionAndMission from './index-components/vision-mission';
 import AlertBetaModal from '@/components/modals/alert-beta-modal';
 
-type MainContextTypes = {
-  experiences: Experience,
-  aboutMe: AboutMe
-}
-
-const MainContext = createContext({} as MainContextTypes);
+const MainContext = createContext({});
 
 const Home: NextPage = () => {
 const [opened, setOpenState] = useState(true);
         return (
         <>
           
-          <MainContext.Provider value={{ aboutMe: aboutMe, experiences: experiences }}>
+          <MainContext.Provider value={{ }}>
           <AlertBetaModal />
             <SplashScreen />
             <AboutMe />
