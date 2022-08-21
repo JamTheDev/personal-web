@@ -1,14 +1,27 @@
-import Button from '@/components/input/button';
-import Navbar from '@/components/navbar'
-import { faFacebook, faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import Modal, { ModalClose } from '@/components/modals/modal';
+import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { NextPage } from 'next'
 import React, { FunctionComponent, HTMLAttributes, useState } from 'react'
 import 'react-circular-progressbar/dist/styles.css';
 const Home: NextPage = () => {
+  const [opened, setOpenState] = useState(true);
   return (
     <>
+      <Modal className='py-6 px-3' opened={opened} onHide={() => setOpenState(false)}>
+        <ModalClose />
+        
+        <div className='flex flex-col justify-center items-center'>
+          <span className='text-red-500 font-bold text-3xl p-3 font-sans'>WARNING</span>
+          <FontAwesomeIcon className='text-red-500' icon={faWarning} size="8x" />
+          <span className='text-center p-3'>
+            This website is still under development. Discrepancies, visual bugs & the likes are still present, and if ever encountered, feel free to contact me. 
+          </span>
+          <button className='bg-gradient-to-r from-purple-400 to-purple-500 py-3 px-6 rounded-lg text-white' onClick={() => setOpenState(false)}>
+            I understand
+          </button>
+        </div>
+      </Modal>
       <SplashScreen />
       <AboutMe />
       <VisionAndMission />
