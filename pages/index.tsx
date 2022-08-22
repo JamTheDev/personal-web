@@ -1,10 +1,6 @@
-import Modal, { ModalClose } from '@/components/modals/modal';
-import { faWarning } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react'
+import React from 'react'
 import 'react-circular-progressbar/dist/styles.css';
-import { Experience } from '@/types/cms-types/experience-types';
-import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import { createContext } from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 import AboutMe from './index-components/about-me';
@@ -16,7 +12,6 @@ import AlertBetaModal from '@/components/modals/alert-beta-modal';
 const MainContext = createContext({});
 
 const Home: NextPage = () => {
-const [opened, setOpenState] = useState(true);
         return (
         <>
           
