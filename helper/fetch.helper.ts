@@ -21,6 +21,7 @@ export async function get(endpoint: string | string[], callback?: (errors: Array
                     (responses as Array<Response>).push(response);
                 }
                 else {
+                    (responses as Array<Response>).push(new Response());
                     errorResponses.push(response);
                 }
 

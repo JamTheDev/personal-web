@@ -8,11 +8,11 @@ export interface ExperienceTags {
 }
 
 export interface ExperienceTagAttr {
-    tag_name: string
+    tagName: string
     createdAt: string
     updatedAt: string
     publishedAt: string
-    experience_items: ExperienceItem
+    experience_section_items: ExperienceItem
 }
 
 export interface ExperienceItem {
@@ -24,8 +24,8 @@ export interface ExperienceItemAttr {
 }
 
 export interface ExperienceItemData {
-    item_text: string,
-    color_from: string,
-    color_to: string,
+    itemName: string,
+    colorFrom: string,
+    colorTo: string,
     imageUrl: string
 }

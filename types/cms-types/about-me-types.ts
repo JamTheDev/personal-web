@@ -8,8 +8,10 @@ export interface AboutMeData {
 }
 
 export interface AboutMeAttr {
-    mypast: string
-    intro: string
+    myPast: string
+    shortIntro: string
     motivation: string
-    experienceDesc: string
+    mission: string
+    vision: string
+    experience: string
 }
