@@ -1,8 +1,10 @@
 import Modal, { ModalClose } from '@/components/modals/modal';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { NextPage } from 'next'
-import React, { FunctionComponent, HTMLAttributes, useState } from 'react'
+import Image from 'next/image';
+import React, { FunctionComponent, HTMLAttributes, useEffect, useState } from 'react'
 import 'react-circular-progressbar/dist/styles.css';
 const Home: NextPage = () => {
   const [opened, setOpenState] = useState(true);
@@ -10,14 +12,14 @@ const Home: NextPage = () => {
     <>
       <Modal className='py-6 px-3' opened={opened} onHide={() => setOpenState(false)}>
         <ModalClose />
-        
+
         <div className='flex flex-col justify-center items-center'>
-          <span className='text-red-500 font-bold text-3xl p-3 font-sans'>WARNING</span>
+          <span className='text-red-500 font-bold lg:text-3xl text-xl p-3 font-sans'>WARNING</span>
           <FontAwesomeIcon className='text-red-500' icon={faWarning} size="8x" />
-          <span className='text-center p-3'>
-            This website is still under development. Discrepancies, visual bugs & the likes are still present, and if ever encountered, feel free to contact me. 
+          <span className='text-center lg:text-lg md:text-md text-sm p-3'>
+            This website is still under development. Discrepancies, visual bugs & the likes are still present, and if ever encountered, feel free to contact me.
           </span>
-          <button className='bg-gradient-to-r from-purple-400 to-purple-500 py-3 px-6 rounded-lg text-white' onClick={() => setOpenState(false)}>
+          <button className='bg-gradient-to-r from-purple-400 to-purple-500 py-3 px-6 rounded-lg text-white lg:text-lg md:text-md text-xs' onClick={() => setOpenState(false)}>
             I understand
           </button>
         </div>
@@ -32,6 +34,26 @@ const Home: NextPage = () => {
 
 
 const SplashScreen: FunctionComponent = () => {
+  const [commits, setCommits] = useState([]);
+  const [listEnabled, setListEnabled] = useState(false);
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+
+    window.onresize = (e) => {
+      setWidth(window.screen.width)
+    }
+
+    (async () => {
+      const response = await fetch('/api/commits', { method: "GET" });
+
+      if (response.status == 200) {
+        const jsonifiedResponse = await response.json();
+        setCommits(jsonifiedResponse.data)
+      }
+
+    })()
+  }, [])
+
   return (
     <>
       <div className='grid lg:grid-cols-3 grid-cols-1 lg:p-12 md:p-10 p-0'>
@@ -55,8 +77,36 @@ const SplashScreen: FunctionComponent = () => {
           </div>
         </div>
 
-        <div className='col-span-1'>
+        <div className='col-span-1 lg:p-12 md:p-12 p-2'>
+          <div className='flex flex-col justify-center items-center'>
+            <FontAwesomeIcon icon={faGithub} size="5x" />
+            <span className='text-xl p-2'>Project Commits</span>
+          </div>
+          <div className='flex flex-col overflow-y-scroll gap-3 p-2 w-full lg:h-96 md:h-96'>
+            {!listEnabled || width > 550 ? <div /> : <span className='text-center px-5 py-3 rounded-lg border-2 border-solid border-black hover:bg-black hover:text-white hover:border-white transition-colors' onClick={() => setListEnabled(val => !val)}>Hide commits?</span>}
+            {
+              listEnabled || width > 550 ? commits.map((val: any, index) => {
+                return (
+                  <div
+                    key={index}
+                    onClick={() => window.open(val.html_url, "_blank")}
+                    className='flex flex-row cursor-pointer group hover:bg-black gap-2 p-2 border-2 border-solid border-stone-300 rounded-md transition-colors'>
+                    <Image className='rounded-full' src={val.author.avatar_url} width={60} height={60} />
+                    <div className='flex flex-col gap-1'>
+                      <span className='text-sm text-stone-500 group-hover:text-stone-50 transition-colors'>
+                        {val.commit.message}
+                      </span>
 
+                      <span className='text-xs text-stone-500 group-hover:text-stone-50 transition-colors'>
+                        {new Date(val.commit.author.date).toLocaleDateString()}
+                      </span>
+                    </div>
+
+                  </div>
+                )
+              }) : <span className='text-center px-5 py-3 rounded-lg border-2 border-solid border-black hover:bg-black hover:text-white hover:border-white transition-colors' onClick={() => setListEnabled(val => !val)}>View commits?</span>
+            }
+          </div>
         </div>
       </div>
     </>

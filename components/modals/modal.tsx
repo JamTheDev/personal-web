@@ -44,7 +44,9 @@ export const ModalBody: FunctionComponent<HTMLAttributes<HTMLDivElement>> = (pro
             relative
             bg-white
             rounded-lg
-            w-96
+            lg:w-96
+            md:w-96
+            w-80
 
             drop-shadow-md
             

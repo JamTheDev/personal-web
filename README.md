@@ -7,9 +7,11 @@ This can be treated as a template for your own portfolio, but for now, this is i
 ## Tasks
 - [x] Landing Page
 - [ ] Personal Blog
-- [ ] Open-source CMS
+- [ ] Self-made CMS
 
 # Plans for the future
+
+I am planning on making an open-source, customizable CMS using Next.js as the front-end & Supabase as the PostgresDB.
 
 I plan on intergrating the `Astro` framework in my portfolio, to give me flexibility on what kind of framework I want to use. 
 
