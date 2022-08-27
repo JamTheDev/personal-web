@@ -1,3 +1,4 @@
+import Footer from '@/components/footer';
 import Modal, { ModalClose } from '@/components/modals/modal';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faWarning } from '@fortawesome/free-solid-svg-icons';
@@ -28,6 +29,7 @@ const Home: NextPage = () => {
       <AboutMe />
       <VisionAndMission />
       <ExperienceSection />
+      <Footer />
     </>
   )
 }
@@ -37,8 +39,8 @@ const SplashScreen: FunctionComponent = () => {
   const [commits, setCommits] = useState([]);
   const [listEnabled, setListEnabled] = useState(false);
   const [width, setWidth] = useState(0);
-  useEffect(() => {
-
+  useEffect(() => { 
+    setWidth(window.screen.width)
     window.onresize = (e) => {
       setWidth(window.screen.width)
     }
@@ -57,7 +59,7 @@ const SplashScreen: FunctionComponent = () => {
   return (
     <>
       <div className='grid lg:grid-cols-3 grid-cols-1 lg:p-12 md:p-10 p-0'>
-        <div className='lg:col-span-2 md:col-span-2 col-span-1'>
+        <div className='lg:col-span-2 md:col-span-2 col-span-1 flex justify-center items-center'>
           <div className='p-12 mt-12 flex flex-col justify-center gap-3 h-96'>
             <span className='lg:text-3xl md:text-text-2xl text-2xl font-bold'>What&apos;s Up?</span>
             <span className='lg:text-[3.5rem] md:text-[2.5rem] text-[2rem]'>
@@ -77,22 +79,24 @@ const SplashScreen: FunctionComponent = () => {
           </div>
         </div>
 
-        <div className='col-span-1 lg:p-12 md:p-12 p-2'>
+        <div className='col-span-1 lg:py-12 md:py-12 py
+        [-2'>
           <div className='flex flex-col justify-center items-center'>
             <FontAwesomeIcon icon={faGithub} size="5x" />
             <span className='text-xl p-2'>Project Commits</span>
           </div>
           <div className='flex flex-col overflow-y-scroll gap-3 p-2 w-full lg:h-96 md:h-96'>
-            {!listEnabled || width > 550 ? <div /> : <span className='text-center px-5 py-3 rounded-lg border-2 border-solid border-black hover:bg-black hover:text-white hover:border-white transition-colors' onClick={() => setListEnabled(val => !val)}>Hide commits?</span>}
+            {listEnabled && width < 600 ? <span className='text-center px-5 py-3 rounded-lg border-2 border-solid border-black hover:bg-black hover:text-white hover:border-white transition-colors' onClick={() => setListEnabled(val => !val)}>Hide commits?</span> : <div />}
             {
-              listEnabled || width > 550 ? commits.map((val: any, index) => {
+              listEnabled || width > 600 ? commits.map((val: any, index) => {
+                console.log(val);
                 return (
                   <div
                     key={index}
                     onClick={() => window.open(val.html_url, "_blank")}
-                    className='flex flex-row cursor-pointer group hover:bg-black gap-2 p-2 border-2 border-solid border-stone-300 rounded-md transition-colors'>
-                    <Image className='rounded-full' src={val.author.avatar_url} width={60} height={60} />
-                    <div className='flex flex-col gap-1'>
+                    className='flex grid-rows-5 cursor-pointer group hover:bg-black gap-2 p-2 border-2 border-solid border-stone-300 rounded-md transition-colors'>
+                    <Image className='col-span-2 rounded-full' src={val.author.avatar_url} width={60} height={60} />
+                    <div className='col-span-3 flex flex-col gap-1'>
                       <span className='text-sm text-stone-500 group-hover:text-stone-50 transition-colors'>
                         {val.commit.message}
                       </span>
