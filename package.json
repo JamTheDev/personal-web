@@ -17,15 +17,9 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/animejs": "^3.1.5",
-<<<<<<< HEAD
-    "@types/sendmail": "^1.4.4",
-    "animejs": "^3.2.1",
-    "@types/marked": "^4.0.5",
-=======
     "@types/marked": "^4.0.5",
     "@types/sendmail": "^1.4.4",
     "animejs": "^3.2.1",
->>>>>>> 1d6d7ce (feat: added cypress testing, fetch component)
     "marked": "^4.0.18",
     "next": "12.2.4",
     "react": "18.2.0",
@@ -35,13 +29,9 @@
     "sendmail": "^1.6.1"
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "@octokit/core": "^4.0.5",
-=======
     "@cypress/react": "^6.1.1",
     "@cypress/webpack-dev-server": "^2.2.0",
     "@testing-library/cypress": "^8.0.3",
->>>>>>> 1d6d7ce (feat: added cypress testing, fetch component)
     "@types/node": "18.6.5",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
