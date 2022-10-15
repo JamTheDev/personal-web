@@ -97,7 +97,7 @@ const ArticleList: NextPage = () => {
 
                     <CardBody>
                         {
-                            articles.map((data: any, index: number) => <ArticleCard data={data} />)
+                            articles.map((data: any, index: number) => <ArticleCard data={data} key={data.id} />)
                         }
                     </CardBody>
                 </> : <>
