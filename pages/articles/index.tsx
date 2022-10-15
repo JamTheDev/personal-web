@@ -55,26 +55,28 @@ const ArticleList: NextPage = () => {
 
     const LatestArticle: FunctionComponent = () => {
         return (
-            <div className="grid lg:grid-cols-5 grid-rows-2 p-12 lg:h-[500px] h-[50%] group cursor-pointer" onClick={() => router.push(`/articles/${featuredArticle.id}`)}>
+            <div className="grid lg:grid-cols-5 grid-rows-2 lg:p-12 p-6 lg:h-[500px] h-[50%] group cursor-pointer" onClick={() => router.push(`/articles/${featuredArticle.id}`)}>
 
-                <div className="relative lg:col-span-3 row-span-1 lg:h-96">
+                <div className="relative lg:col-span-3 row-span-1 h-[350px]">
                     <img
-                        className="object-fill w-full max-h-full"
+                        className="object-cover w-full lg:h-[800px] h-full max-h-full"
                         src={`https://jam-portfolio-cms-production.up.railway.app${(featuredArticle as any).attributes.articleCoverImage.data[0].attributes.formats.thumbnail.url}`} />
                 </div>
 
                 <div className="relative flex flex-col lg:col-span-2 row-span-3 lg:pl-12 pt-2 lg:h-96 h-[100%] p-0 gap-4">
                     <span className="lg:text-4xl text-2xl font-bold">{featuredArticle.attributes.articleTitle}</span>
-                    <span className="lg:text-md text-sm italic">{featuredArticle.attributes.articleSub}</span>
+                    <span className="lg:text-lg md:text-md text-sm italic">{featuredArticle.attributes.articleSub}</span>
 
-                    <div className="flex flex-row items-center gap-5">
-                        <FontAwesomeIcon icon={faUser} />
-                        <span className="text-sm">{featuredArticle.attributes.author}</span>
-                    </div>
+                    <div className="flex lg:flex-col md:flex-col flex-row gap-4">
+                        <div className="flex flex-row items-center gap-5">
+                            <FontAwesomeIcon icon={faUser} />
+                            <span className="text-sm">{featuredArticle.attributes.author}</span>
+                        </div>
 
-                    <div className="flex flex-row items-center gap-5">
-                        <FontAwesomeIcon icon={faClock} />
-                        <span className="text-sm">{new Date((featuredArticle as Article).attributes.createdAt).toLocaleDateString()}</span>
+                        <div className="flex flex-row items-center gap-5">
+                            <FontAwesomeIcon icon={faClock} />
+                            <span className="text-sm">{new Date((featuredArticle as Article).attributes.createdAt).toLocaleDateString()}</span>
+                        </div>
                     </div>
 
                     <div className="flex flex-row items-center gap-3 absolute bottom-0 right-0 p-3 cursor-pointer">
