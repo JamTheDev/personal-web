@@ -1,6 +1,4 @@
-import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 
 import { marked } from "marked";
 import { Article } from "@/components/types/cms-types/article.types";
@@ -69,21 +67,25 @@ const Article = () => {
                                 content={`https://jam-portfolio-cms-production.up.railway.app${(article as any).attributes.articleCoverImage.data[0].attributes.formats.thumbnail.url}`}
                             />
                         </Head>
-                        <div className="relative flex flex-col gap-4 px-[20%] py-12 w-full">
+                        <div className="relative flex flex-col gap-4 lg:px-[20%] px-6 py-12 w-full">
                             <span className="lg:text-4xl text-2xl font-bold">{(article as Article).attributes.articleTitle}</span>
                             <div className="" dangerouslySetInnerHTML={{ __html: marked.parse((article as Article).attributes.articleSub) }}></div>
                         </div>
                         <div className="w-full h-96 bg-red-400">
                             <img className="w-full h-full object-cover" src={`https://jam-portfolio-cms-production.up.railway.app${(article as any).attributes.articleCoverImage.data[0].attributes.formats.thumbnail.url}`} />
                         </div>
-                        <div className="lg:p-12 p-6 lg:mt-5 mt-10">
-                            <div className="pt-5 flex flex-col gap-4 px-[20%]" dangerouslySetInnerHTML={{ __html: marked.parse((article as Article).attributes.articleBody) }}></div>
+                        <div className="lg:p-12 p-2 py-6 lg:mt-5 mt-10">
+                            <div className="pt-5 flex flex-col gap-4 lg:px-[20%] px-6" dangerouslySetInnerHTML={{ __html: marked.parse((article as Article).attributes.articleBody) }}></div>
                         </div>
                         <Footer />
                     </> :
                     <div>
                         <Head>
                             <title>Loading...</title>
+                            <meta 
+                                name="title"
+                                content="Jams Blog"
+                            />
                         </Head>
 
                         <span className="flex justify-center font-bold text-3xl p-12    ">

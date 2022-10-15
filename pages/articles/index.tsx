@@ -55,17 +55,17 @@ const ArticleList: NextPage = () => {
 
     const LatestArticle: FunctionComponent = () => {
         return (
-            <div className="grid grid-cols-5 p-12 h-[500px] group cursor-pointer" onClick={() => router.push(`/articles/${featuredArticle.id}`)}>
+            <div className="grid lg:grid-cols-5 grid-rows-2 p-12 lg:h-[500px] h-[50%] group cursor-pointer" onClick={() => router.push(`/articles/${featuredArticle.id}`)}>
 
-                <div className="relative col-span-3 max-h-full object-contain" >
+                <div className="relative lg:col-span-3 row-span-1 lg:h-96">
                     <img
-                        className="relative object-cover w-full h-96"
+                        className="object-fill w-full max-h-full"
                         src={`https://jam-portfolio-cms-production.up.railway.app${(featuredArticle as any).attributes.articleCoverImage.data[0].attributes.formats.thumbnail.url}`} />
                 </div>
 
-                <div className="relative flex flex-col col-span-2 pl-12 gap-4">
-                    <span className="text-4xl font-bold">{featuredArticle.attributes.articleTitle}</span>
-                    <span className="text-md italic">{featuredArticle.attributes.articleSub}</span>
+                <div className="relative flex flex-col lg:col-span-2 row-span-3 lg:pl-12 pt-2 lg:h-96 h-[100%] p-0 gap-4">
+                    <span className="lg:text-4xl text-2xl font-bold">{featuredArticle.attributes.articleTitle}</span>
+                    <span className="lg:text-md text-sm italic">{featuredArticle.attributes.articleSub}</span>
 
                     <div className="flex flex-row items-center gap-5">
                         <FontAwesomeIcon icon={faUser} />
