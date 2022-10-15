@@ -1,4 +1,4 @@
-import ProjectCard, { ProjectCardBg, ProjectCardBody } from "@/components/projects/project-card";
+import ProjectCard, { ProjectCardBg, ProjectCardBody } from "@/components/layouts/default/projects/project-card";
 import { NextPage } from "next";
 
 const Projects: NextPage = () => {

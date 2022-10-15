@@ -2,7 +2,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { FunctionComponent, useEffect, useState } from "react";
-import Modal, { ModalClose } from "./modals/modal";
+import Modal, { ModalClose } from "../default/modals/modal";
 import anime from "animejs";
 
 const Navbar: FunctionComponent = () => {
@@ -24,7 +24,7 @@ const Navbar: FunctionComponent = () => {
         return (
             <>
                 <div className="group nav-btn lg:p-0 md:p-0 p-2">
-                    <input type="button" className="relative cursor-pointer px-4" value="Blog" onClick={() => changeModalState(true)} />
+                    <input type="button" className="relative cursor-pointer px-4" value="Blog" onClick={() => router.replace("/articles")} />
                     <div className="group-hover:w-full w-0 transition-all h-[1px] bg-black"></div>
                 </div>
 
@@ -53,6 +53,7 @@ const Navbar: FunctionComponent = () => {
                     </span>
                 </div>
             </Modal>
+            
             <nav className="fixed z-40 bg-white grid grid-cols-2 items-center w-full h-12 lg:px-8 px-4 drop-shadow-lg">
                 <div className="col-span-1">
                     <span className="font-bold text-2xl">Jam</span>
@@ -76,7 +77,11 @@ const Navbar: FunctionComponent = () => {
                         : <></>
                 }
             </nav>
-
+            { /** Serves as the relative spacing of the navbar, 
+             * to prevent the main content from going under
+             * the navigation bar. 
+             */}
+            <div className="h-12 w-full " />
         </>
     );
 }

@@ -3,11 +3,11 @@ import 'react-circular-progressbar/dist/styles.css';
 import type { GetServerSideProps, NextPage } from 'next'
 import { createContext } from 'react';
 import 'react-circular-progressbar/dist/styles.css';
-import AboutMe from './index-components/about-me';
-import ExperienceSection from './index-components/experience-section';
-import SplashScreen from './index-components/splash-screen';
-import VisionAndMission from './index-components/vision-mission';
-import AlertBetaModal from '@/components/modals/alert-beta-modal';
+import AboutMe from '../components/layouts/default/landing/about-me';
+import ExperienceSection from '../components/layouts/default/landing/experience-section';
+import SplashScreen from '../components/layouts/default/landing/splash-screen';
+import VisionAndMission from '../components/layouts/default/landing/vision-mission';
+import AlertBetaModal from '@/components/layouts/default/modals/alert-beta-modal';
 
 const MainContext = createContext({});
 
@@ -24,12 +24,6 @@ const Home: NextPage = () => {
           </MainContext.Provider>
         </>
         )
-}
-
-export const getServerSideProps: GetServerSideProps = async (props) => {
-  return {
-    props: {}
-  }
 }
 
 export default Home;

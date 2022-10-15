@@ -1,6 +1,6 @@
 import { FunctionComponent, HTMLAttributes, ReactNode, useState } from "react";
-import ErrorFallback from "./fallbacks/error-fallback";
-import WaitingFallback from "./fallbacks/waiting-fallback";
+import ErrorFallback from "../core/fallbacks/error-fallback";
+import WaitingFallback from "../core/fallbacks/waiting-fallback";
 
 type FetchAttributes = {
     errorFallback?: ReactNode
@@ -16,20 +16,18 @@ enum FetchState {
     FAILED
 }
 
+
 /**
- * A component that safely handles HTTP/s requests with a
+ * A fetch wrapper for react that safely handles HTTP/s requests with a
  * fallback / wait component.
  * @returns Component
  */
-
-type DataRecordKey = "sd"
-
 const Fetch: FunctionComponent<FetchAttributes> = (props) => {
 
     const [fetchState, changeFetchState] = useState(FetchState.LOADING);
     let data: Array<{ key: string, value: any }> = [];
 
-    if (!props.urls?.length) {
+    if (!props.urls) {
         changeFetchState(FetchState.FAILED);
     }
 
@@ -76,13 +74,6 @@ const Fetch: FunctionComponent<FetchAttributes> = (props) => {
             return <WaitingFallback />
 
     }
-
-
-    return (
-        <>
-            {props.children}
-        </>
-    )
 }
 
 export default Fetch

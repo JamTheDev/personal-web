@@ -12,7 +12,7 @@
         "components/*"
       ],
       "@/helper/*": [
-        "helper/*"
+        "components/helper/*"
       ],
       "@/public/*": [
         "public/*"
@@ -21,7 +21,7 @@
         "styles/*"
       ],
       "@/types/*": [
-        "types/*"
+        "components/types/*"
       ]
     },
     "allowJs": true,

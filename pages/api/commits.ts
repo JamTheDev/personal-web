@@ -1,7 +1,5 @@
 import { NextApiHandler } from "next";
-import { Octokit } from '@octokit/core';
-
-const octokit = new Octokit({ auth: process.env.REPO_KEY });
+import octokit from "@/components/singletons/core/octokit";
 
 const handler: NextApiHandler = async (req, res) => {
     const fiveRecentCommits = await octokit.request(
