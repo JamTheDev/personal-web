@@ -55,15 +55,15 @@ const ArticleList: NextPage = () => {
 
     const LatestArticle: FunctionComponent = () => {
         return (
-            <div className="grid lg:grid-cols-5 grid-rows-2 lg:p-12 p-6 lg:h-[500px] h-[50%] group cursor-pointer" onClick={() => router.push(`/articles/${featuredArticle.id}`)}>
+            <div className="grid lg:grid-cols-5 grid-rows-2 justify-center lg:p-12 p-2 lg:h-[500px] h-[50%] group cursor-pointer" onClick={() => router.push(`/articles/${featuredArticle.id}`)}>
 
                 <div className="relative lg:col-span-3 row-span-1 h-[350px]">
                     <img
-                        className="object-cover w-full lg:h-[800px] h-full max-h-full"
+                        className="object-cover w-full lg:h-[800px] h-full max-h-full rounded-lg"
                         src={`https://jam-portfolio-cms-production.up.railway.app${(featuredArticle as any).attributes.articleCoverImage.data[0].attributes.formats.thumbnail.url}`} />
                 </div>
 
-                <div className="relative flex flex-col lg:col-span-2 row-span-3 lg:pl-12 pt-2 lg:h-96 h-[100%] p-0 gap-4">
+                <div className="relative flex flex-col lg:col-span-2 row-span-3 lg:pl-12 py-4 lg:h-96 h-[90%] p-0 gap-4">
                     <span className="lg:text-4xl text-2xl font-bold">{featuredArticle.attributes.articleTitle}</span>
                     <span className="lg:text-lg md:text-md text-sm italic">{featuredArticle.attributes.articleSub}</span>
 
@@ -88,7 +88,7 @@ const ArticleList: NextPage = () => {
         )
     }
     return (
-        <div className="p-12">
+        <div className="lg:p-12 p-6">
             <span className="text-3xl font-bold">Featured Article</span>
             {
                 !loading ? <>
