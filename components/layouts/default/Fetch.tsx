@@ -1,13 +1,15 @@
-import { FunctionComponent, HTMLAttributes, ReactNode, useState } from "react";
+import { FunctionComponent, HTMLAttributes, ReactNode, useEffect, useState } from "react";
+import { clearTimeout } from "timers";
 import ErrorFallback from "../core/fallbacks/error-fallback";
 import WaitingFallback from "../core/fallbacks/waiting-fallback";
 
 type FetchAttributes = {
     errorFallback?: ReactNode
-    waitingFallback?: ReactNode
-    children?: ReactNode
-    urls?: Array<{ urlName: string, endpoint: string }>
-} & HTMLAttributes<HTMLDivElement>
+    waitingFallback: ReactNode
+    onError?: (e: any) => void
+    children: (v: any) => ReactNode
+    urls: Array<{ urlName: string, endpoint: string }>
+}
 
 enum FetchState {
     IDLE,
@@ -16,7 +18,13 @@ enum FetchState {
     FAILED
 }
 
+type FetchResponse = {
+    data: any
+    url: string
+    state: FetchState
+}
 
+// TODO: Identify errors / discrepancies for the fetch component.
 /**
  * A fetch wrapper for react that safely handles HTTP/s requests with a
  * fallback / wait component.
@@ -24,56 +32,73 @@ enum FetchState {
  */
 const Fetch: FunctionComponent<FetchAttributes> = (props) => {
 
-    const [fetchState, changeFetchState] = useState(FetchState.LOADING);
-    let data: Array<{ key: string, value: any }> = [];
+    const [fetchData, setFetchData] = useState({} as any);
+    const [fetchState, setFetchState] = useState(FetchState.IDLE);
 
-    if (!props.urls) {
-        changeFetchState(FetchState.FAILED);
-    }
+    const request = async () => {
 
-    props.urls?.forEach(async (val, index) => {
-        try {
-            const response = await fetch(val.endpoint, { method: 'GET' })
+        let pollCount: number = 0;
+        const poll = setInterval(() => {
+            const responses: Map<string, FetchResponse> = new Map([]);
 
-            if (response.status != 200) {
-                changeFetchState(FetchState.FAILED);
+            if (!props.urls) {
+                setFetchState(FetchState.FAILED);
                 return;
             }
-    
-            data.push({
-                "key": val.urlName,
-                "value": (await response.json())
-            })
-    
-            console.log("pushed data")
-    
-            if (index == props.urls!.length - 1) {
-                changeFetchState(FetchState.LOADED);
-            }
-        } catch {
-            changeFetchState(FetchState.FAILED)
-        }
 
-        
-    })
+            setFetchState(FetchState.LOADING);
 
-    switch (fetchState) {
-        case FetchState.FAILED:
-            return (
-                <>
-                    {
-                        props.errorFallback ?? <ErrorFallback />
-                    }
-                </>
-            );
-        case FetchState.LOADING:
-            return <WaitingFallback />
-        case FetchState.LOADED:
-            return <>{props.children}</>
-        default:
-            return <WaitingFallback />
+            props.urls.map(async (url, index) => {
 
+                if (fetchState == FetchState.LOADED) {
+                    clearInterval(poll);
+                    return;
+                }
+
+                if (pollCount > 3) {
+                    clearInterval(poll);
+                    setFetchState(FetchState.FAILED);
+                    return;
+                }
+
+                const response = await fetch(url.endpoint);
+
+                if (!response || !response.ok) {
+                    setFetchState(FetchState.FAILED);
+                    return;
+                }
+
+                const jsonResponse = await response.json();
+
+                console.log(jsonResponse);
+
+                responses.set(url.urlName, {
+                    data: jsonResponse,
+                    state: FetchState.LOADED,
+                    url: url.urlName
+                });
+
+                if (index == props.urls.length - 1) {
+                    console.log(responses);
+                    setFetchData(responses);
+                    setFetchState(FetchState.LOADED);
+                }
+
+                pollCount++;
+            });
+
+        }, 1500);
     }
+
+    useEffect(() => {
+        request();
+    }, []);
+
+    return <>
+        {
+            fetchState == FetchState.LOADING ? props.waitingFallback : props.children?.(fetchData)
+        }
+    </>
 }
 
-export default Fetch
+export default Fetch;

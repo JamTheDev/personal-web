@@ -6,8 +6,9 @@ This can be treated as a template for your own portfolio, but for now, this is i
 
 ## Tasks
 - [x] Landing Page
-- [ ] Personal Blog
+- [x] Personal Blog
 - [ ] Self-made CMS
+- [ ] Fix fetch component
 
 # Plans for the future
 

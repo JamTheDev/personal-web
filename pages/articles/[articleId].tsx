@@ -10,6 +10,7 @@ const Article = () => {
 
     const [article, setNewArticle] = useState({} as Article);
     const [loading, setLoadingState] = useState(true);
+    const [failed, setFailedState] = useState(false);
     const router = useRouter();
 
     const { articleId } = router.query;
@@ -20,8 +21,14 @@ const Article = () => {
 
         const poll = setInterval(async () => {
 
-            if (pollIteration > 3 || !loading) {
+            if (!loading) {
                 clearInterval(poll);
+                return;
+            }
+
+            if (pollIteration > 3) {
+                clearInterval(poll);
+
                 return;
             }
 
@@ -47,10 +54,14 @@ const Article = () => {
         requestData();
     }, [router.isReady]);
 
+    const MainComponent = () => {
+        
+    }
+
     return (
         <>
             {
-                !loading ?
+                !loading && !failed ?
                     <>
                         <Head>
                             <title>{article.attributes.articleTitle} | {article.attributes.author}</title>

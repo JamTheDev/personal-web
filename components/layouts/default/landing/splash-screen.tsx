@@ -2,12 +2,15 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FunctionComponent, useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 
 const SplashScreen: FunctionComponent = () => {
   const [commits, setCommits] = useState([]);
   const [listEnabled, setListEnabled] = useState(false);
   const [width, setWidth] = useState(0);
+
+  const router = useRouter();
   useEffect(() => {
     setWidth(window.screen.width)
     window.onresize = (e) => {
@@ -47,15 +50,29 @@ const SplashScreen: FunctionComponent = () => {
                 <span className="relative ">Jack-of-all-trades.</span>
               </div>
             </span>
-            <span className='text-md'>I build things for web, android, desktop, and even cross-platform! I am very active at Discord and Other platforms. Please check out my Projects too!</span>
-            <input type="button" className="
+            <span className='text-md'>I am a software, game, and an application developer. I wish to work under someone or a company wherein I can apply my skills whilst improving my own set of skills as well.</span>
+            <div className="flex lg:flex-row flex-col">
+              <input 
+              onClick={() => router.push("/education")}
+              type="button" className="
           cursor-pointer 
           rounded-full 
           border-black border-2
-          w-24 
+           flex-1
           hover:bg-black hover:text-white
           transition-colors 
-          p-2 m-2" value="whoami" />
+          p-2 m-2" value="Education" />
+              <input 
+              onClick={() => router.push("/articles")}
+              type="button" className="
+          cursor-pointer 
+          rounded-full 
+          border-black border-2
+           flex-1
+          hover:bg-black hover:text-white
+          transition-colors 
+          p-2 m-2" value="Personal Blog" />
+            </div>
           </div>
         </div>
 

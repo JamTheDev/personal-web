@@ -89,7 +89,7 @@ const ArticleList: NextPage = () => {
     }
     return (
         <div className="lg:p-12 p-6">
-            <span className="text-3xl font-bold">Featured Article</span>
+            <span className="text-4xl font-bold font-oswald">FEATURED ARTICLE</span>
             {
                 !loading ? <>
                     <Head>
